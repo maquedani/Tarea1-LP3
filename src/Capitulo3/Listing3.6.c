@@ -1,34 +1,20 @@
-#include <windows.h>
-#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <unistd.h>
 
-int main() {
-    STARTUPINFO si;
-    PROCESS_INFORMATION pi;
+int main ()
+{
+    pid_t child_pid;
 
-    ZeroMemory(&si, sizeof(si));
-    si.cb = sizeof(si);
-    ZeroMemory(&pi, sizeof(pi));
-
-    // Crear un proceso hijo (ejemplo: Notepad)
-    if (!CreateProcess(
-            NULL,             // Nombre del programa
-            "notepad.exe",    // Comando a ejecutar
-            NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi)) 
-    {
-        printf("Fallo al crear el proceso hijo.\n");
-        return 1;
+    /* Create a child process. */
+    child_pid = fork ();
+    if (child_pid > 0) {
+    /* This is the parent process. Sleep for a minute. */
+    sleep (60);
     }
-
-    printf("Proceso hijo creado con PID %lu\n", pi.dwProcessId);
-
-    // Dormir 60 segundos para simular que el padre está “vivo”
-    printf("Padre durmiendo 60 segundos. Observa el proceso hijo...\n");
-    Sleep(60000);
-
-    // Cerrar handles del proceso hijo (aquí es cuando Windows limpia)
-    CloseHandle(pi.hProcess);
-    CloseHandle(pi.hThread);
-
-    printf("Handles cerrados, proceso hijo ya no se mantiene.\n");
+    else {
+    /* This is the child process. Exit immediately. */
+    exit (0);
+    }
     return 0;
-}
+} 

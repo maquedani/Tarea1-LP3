@@ -31,7 +31,13 @@ int main (int argc, char* const argv[])
     strcpy (name.sun_path, socket_name);
 
     /* Connect the socket. */
-    connect (socket_fd, &name, SUN_LEN (&name));
+    /* antes: connect (socket_fd, &name, SUN_LEN (&name)); 
+    Modificado para compilar con make*/
+    if (connect(socket_fd, (struct sockaddr*)&name, sizeof(struct sockaddr_un)) == -1) {
+        perror("connect");
+        return 1;
+}
+
 
     /* Write the text on the command line to the socket. */
     write_text (socket_fd, message);

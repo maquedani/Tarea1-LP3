@@ -51,7 +51,11 @@ int main(int argc, char* const argv[])
     /* Set up the server address */
     memset(&name, 0, sizeof(name));
     name.sin_family = AF_INET;
-    name.sin_addr = *((struct in_addr *)hostinfo->h_addr);
+    // name.sin_addr = *((struct in_addr *)hostinfo->h_addr);
+    /* Copiamos la primera dirección IPv4 devuelta por gethostbyname 
+    Modificado para compilar con make*/
+    memcpy(&name.sin_addr, hostinfo->h_addr_list[0], hostinfo->h_length);
+
     name.sin_port = htons(80);
 
     /* Connect to the Web server */
