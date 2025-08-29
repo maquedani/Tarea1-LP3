@@ -21,5 +21,5 @@ Compila únicamente src/Capitulo3/Listing3.5.c → bin/Capitulo3/listing3.5.
 Compila todos los listados del Capítulo 4.
 
 # Colaboradores
-- Leyda Fleitas @leydafleitasfp  
-- Daniela González @maquedani
+- [Leyda Fleitas](https://github.com/leydafleitasfp)
+- [Daniela González](https://github.com/maquedani)
